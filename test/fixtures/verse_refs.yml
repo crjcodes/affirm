@@ -1,9 +1,9 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  ref: MyString
-  belongs_to: 
+  verse_ref: MyString
+  keyword: one
 
 two:
-  ref: MyString
-  belongs_to: 
+  verse_ref: MyString
+  keyword: two
