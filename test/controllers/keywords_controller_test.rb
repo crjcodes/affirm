@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class VersesControllerTest < ActionDispatch::IntegrationTest
+class KeywordsControllerTest < ActionDispatch::IntegrationTest
   test "should get show" do
-    get verses_show_url
+    get keywords_show_url
     assert_response :success
   end
 
