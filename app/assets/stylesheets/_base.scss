@@ -1,0 +1,63 @@
+//===============================
+//    COLORS
+//
+
+$wine: #6E0E29;
+$dark_red: #8C0200;
+$dark_blue: #041831;
+$emerald: #0B4839;
+$gold: #E4B669;
+$dark: #333;
+$light: #fff;
+$med-light:  #ccc;
+$med: #aaa;
+
+
+$fore-color: $dark;
+$back-back-color: $wine;
+$back-color: $light;
+$back-control-color: $emerald;
+
+$standout-color: $wine;
+
+$accent-color: $emerald;
+$highlight-color: $gold;
+$border-color: $wine;
+$shadow-color: $med;
+$light-shadow-color: $med-light;
+$control-border-color: $wine;
+
+//===============================
+//    TYPOGRAPHY
+//
+
+$font-stack: Georgia, Utopia, Times, "Times New Roman", serif;
+//$font-size: calc(1em + 1vw);
+$font-size: 100%;
+$line-height: 1.5em;
+
+$h1-size: 1.5rem;
+$h2-size: 1.1rem;
+$h3-size: 1.0rem;
+$h4-size: 1.1rem;
+$h5-size: 1.0rem;
+$h6-size: 1.0rem;
+
+
+//===============================
+//    LAYOUT SIZING
+//
+
+//--------------------------------
+// border
+
+$border-rad: 3px;
+$border-thick: 1px;
+$arrow-size: 6px;
+
+//================================
+//    OTHER VARIABLES
+
+$trans-time: .3s;
+
+

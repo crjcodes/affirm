@@ -1,0 +1,204 @@
+@import 'reset';
+@import "../node_modules/rfs/scss";
+@import 'base';
+@import 'controls';
+
+//================================
+// APPLY THEMED ELEMENTS
+
+//--------------------------------
+//  COLOR THEME
+
+html {
+  background-color: $back-back-color;
+  color: $fore-color; 
+}
+
+body {
+  background-color: $back-color;
+  color: $fore-color; 
+}  
+
+  
+h1, h2, h3, h4, h5, h6 {
+  color: $back-color;
+  background-color: $standout-color;
+}
+
+em { color: $standout-color; }
+
+a {
+  color: $standout-color; }
+
+a:visited {
+  color: $accent-color; }
+
+a:hover {
+  color: $highlight-color; }
+
+.aff-header, .aff-content, .aff-footer  {
+  background-color: $back-color;
+  color: $fore-color;  
+}
+
+.select-wrapper {
+  background-color: $emerald;
+  border-color: $control-border-color;
+}
+
+
+.passage {
+  border-color: $gold;  
+  box-shadow: 0 7px 7px 0 $ctrl-shadow-color, 0 8px 22px 0 $ctrl-light-shadow-color;
+}
+
+.verse {
+  color: $dark_blue;
+}
+
+.ref {
+  color: $emerald;
+}
+
+//--------------------------------
+//  TYPOGRAPHY
+
+html {
+  font-size: $font-size; 
+  font-family: $font-stack;
+  line-height: $line-height;
+}
+
+body { line-height: $line-height; }
+
+h1 { @include font-size($h1-size); }
+h2 { @include font-size($h2-size); }
+h3 { @include font-size($h3-size); }
+h4 { @include font-size($h4-size); }
+h5 { @include font-size($h5-size); }
+
+em { 
+  @include font-size(1.05rem);
+  font-style: italic;
+}
+
+button, input { 
+  font-size: inherit }
+
+.aff-tagline {
+  @include font-size(1.2rem);
+  font-style: italic;  
+}
+
+.ref {
+  font-style: italic;
+  font-size: 110%;
+}
+
+//================================
+// LAYOUT
+
+body {
+  @include margin-top(.5rem);
+  @include margin-bottom(.5rem);
+  @include margin-right(.5rem);
+  @include margin-left(.5rem);
+
+  @include padding-top(1rem);
+  @include padding-bottom(1rem);
+  @include padding-right(.5rem);
+  @include padding-left(.5rem);
+}
+
+h1, h2, h3, h4, h5 {
+  @include padding-top(.9rem);
+  @include padding-bottom(.6rem);
+  @include padding-right(.4rem);
+  @include padding-left(.75rem);
+
+  @include margin-top(.5rem);
+  @include margin-bottom(.5rem);
+  @include margin-right(.01rem);
+  @include margin-left(.01rem);
+}
+
+p {
+  @include padding-top(.5rem);
+  @include padding-bottom(.5rem);
+  @include padding-right(.01rem);
+  @include padding-left(.3rem);
+
+  @include margin-top(.02rem);
+  @include margin-bottom(.02rem);
+  @include margin-right(.01rem);
+  @include margin-left(.01rem);
+}
+
+.aff-header, .aff-content, .aff-footer {
+  @include padding-left(1rem);
+  @include padding-right(1rem);
+
+  @include margin-left(.01rem);  
+  @include margin-right(.01rem);
+
+}
+
+.aff-header {
+  @include padding-top(0rem);
+  @include padding-bottom(0rem);
+  
+  @include margin-top(0rem);
+  @include margin-bottom(0rem);
+}
+
+.aff-content {
+  @include padding-top(2rem);
+  @include padding-bottom(2rem);
+
+  @include margin-top(1rem);
+  @include margin-bottom(.02rem);
+}
+
+.aff-footer {
+  @include padding-top(2rem);
+  @include padding-bottom(2rem);
+  @include margin-top(1rem);
+  @include margin-bottom(.02rem);
+}
+
+.aff-header img {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.aff-tagline {
+  position: relative;
+  display: inline-block;
+
+  @include margin-top(.02rem);
+  @include margin-bottom(.02rem);
+  @include margin-right(.01rem);
+  @include margin-left(.01rem);  
+}
+
+
+.aff-header, .aff-footer, .aff-content {
+  box-shadow: 0 7px 7px 0 $shadow-color, 0 8px 22px 0 $light-shadow-color;
+}
+
+.affcontent { padding: 0; }
+
+.passage { 
+  border: 1px solid;
+  border-radius: 3px;
+  @include margin(.8rem); 
+}
+.verse { 
+  @include padding(1.2rem 2.0rem .02rem 2.0rem); 
+}
+.ref { 
+  text-align: right;
+  @include padding(1.2rem 2.0rem 1.5rem 2.5rem); 
+}

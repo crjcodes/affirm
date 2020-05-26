@@ -1,0 +1,144 @@
+@import 'base';
+@import '../node_modules/rfs/scss';
+
+
+$ctrl-font-size: 1.11rem;
+$ctrl-line-height: 2.4rem;
+
+$ctrl-font-color: $light;
+$ctrl-border-color: $wine;
+$ctrl-fill-color: $light;
+$ctrl-back-color: $dark_blue;
+$ctrl-border-color: $standout-color;
+$ctrl-shadow-color: $dark-blue;
+$ctrl-light-shadow-color : $light-shadow-color;
+$ctrl-highlight-color: $gold;
+
+$ctrl-border-width: .063rem;
+$ctrl-width: 100%;
+$ctrl-min-width: 25rem; 
+$ctrl-max-width: 30rem;
+$ctrl-height: 100%;
+$ctrl-font-size: 1.05rem;
+$ctrl-right: 0rem;
+$ctrl-top: .6rem;
+
+$ctrl-opt-back: $accent-color;
+$ctrl-opt-fore: $standout-color;
+
+.select_wrapper {
+
+    @include padding-top(.3rem);
+    @include padding-bottom(2rem);
+    @include padding-right(.3rem);
+    @include padding-left(.3rem);
+
+    @include rfs(0 0 0 0, margin);
+
+    @include rfs($ctrl-min-width, min-width);
+    @include rfs($ctrl-min-width, min-width);
+
+    display: block;
+    position: relatve;
+
+}
+
+.select_wrapper select {
+    
+    color: $ctrl-font-color;
+    background-color: $ctrl-fill-color;
+    background-image: none;
+    border-color: $ctrl-border-color;
+    border-style: solid;    
+
+    font-weight: bold;
+
+    @include rfs($ctrl-border-width, border-width);
+
+    @include rfs($ctrl-font-size, font-size);
+    @include rfs($ctrl-line-height, line-height);
+    -ms-word-break: normal;
+    word-break: normal;
+
+    display: block;
+    width: 100%;
+
+    @include rfs($ctrl-max-width, max-width);
+    margin: 0;
+    @include rfs(.4rem .4rem, padding);
+
+    
+    select:active, select.active {
+        background-color: $highlight-color;
+    }
+}
+
+select option {
+  @include rfs(.5rem .8rem, padding);
+  @include rfs(1.1rem .5rem, margin);
+
+  
+  &:checked {
+    font-weight: bolder;
+    background-color: $ctrl-highlight-color;
+    border: 1px solid $ctrl-highlight-color;
+    border-radius: 3px;
+    box-shadow: 0 7px 7px 0 $ctrl-shadow-color, 0 8px 22px 0 $ctrl-light-shadow-color;
+  }
+
+  &:not(:checked){
+    font-weight: normal;
+    background-color: $ctrl-back-color;
+  }
+}
+
+.aff-button {
+    @include padding(.4rem .7rem);
+    
+    border-radius: 6px;
+    //box-shadow: 0 4px 4px 0 $ctrl-shadow-color, 0 8px 22px 0 $ctrl-light-shadow-color;
+}
+
+/* 
+  From 
+     https://css-tricks.com/overriding-default-button-styles/
+*/
+.aff-button  {
+    
+    background: $ctrl-back-color;
+    color: $ctrl-font-color;
+
+    border: 1px solid $ctrl-border-color;
+
+    font-weight: bold;
+    font-size: 1.2rem;
+
+    display: inline-block;
+    padding: .8rem 1.7rem;
+    margin: 0;
+    text-decoration: none;
+
+    cursor: pointer;
+    text-align: center;
+    transition: background 250ms ease-in-out, 
+                transform 150ms ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    box-shadow: 0 4px 4px 0 $ctrl-shadow-color, 0 7px 9px 0 $ctrl-light-shadow-color;    
+}
+
+.aff-button:hover,
+.aff-button:focus {
+    background-color: $ctrl-highlight-color;
+    border-color: $ctrl-highlight-color;
+}
+
+.aff-button:focus {
+    outline: 1px solid $light-shadow-color;
+    outline-offset: -4px;
+}
+
+.aff-button:active {
+    transform: scale(0.99);
+}

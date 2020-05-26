@@ -60,9 +60,9 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  Rails.logger = Logger.new(STDOUT)
-  Rails.logger.formatter = proc do | severity, datetime, progname, msg | 
-    "#{datetime}, #{severity}: <<<AFFIRM>>>  #{msg}\n"
-  end
+#  Rails.logger = Logger.new(STDOUT)
+#  Rails.logger.formatter = proc do | severity, datetime, progname, msg | 
+#    "#{datetime}, #{severity}: <<<AFFIRM>>>  #{msg}\n"
+#  end
 
 end
