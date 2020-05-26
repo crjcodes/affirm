@@ -8,7 +8,7 @@ require 'json'
 
 class Verse
 
-  SOURCE = "https://getbible.net/json"
+  SOURCE = "https://getbible.net/json".freeze
   
   # this parses what is received back from the external api,
   # forming the verses into one usually longer passage
@@ -46,7 +46,7 @@ class Verse
     
     Rails.logger.debug "at the beginning of Verse::get, source=#{Verse::SOURCE}"
 
-    my_url = Verse::SOURCE
+    my_url = String.new(Verse::SOURCE)
 
 #    Rails.logger.debug "at the beginning of get request, my_url=#{my_url}"
 
