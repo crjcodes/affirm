@@ -14,26 +14,24 @@ class Verse
   # forming the verses into one usually longer passage
   def get_passage(verse_ref)
 
-    json = get(verse_ref)
-
-    # CODEON: json validation needed
-
+    check_result = get(verse_ref)
+  
     result = ""
+    if check_result["success"] == true
+      json = check_result["result"]
+      item = json["book"][0]["chapter"]
 
-#    Rails.logger.debug "json=#{json}"
-
-    item = json["book"][0]["chapter"]
-
-    item.each do |key, val|      
-      item[key].each do |k2, v2|
-        if k2 == "verse"
-          result.concat(v2)
+      item.each do |key, val|      
+        item[key].each do |k2, v2|
+          if k2 == "verse"
+            result.concat(v2)
+          end
         end
       end
+    else
+      json = ""
     end
-
 #    Rails.logger.debug "result= #{result}"     
-
     return result
   end
 
@@ -41,20 +39,11 @@ class Verse
   # the Bible passage requested
 
   def get(verse_ref)
-    
-    # CODEON: validate source constant??
-    
-    Rails.logger.debug "at the beginning of Verse::get, source=#{Verse::SOURCE}"
-
+       
     my_url = String.new(Verse::SOURCE)
-
-#    Rails.logger.debug "at the beginning of get request, my_url=#{my_url}"
-
     my_url.concat "?passage=" + URI.encode(verse_ref)
     my_url.concat "&type=json"
-
-#    Rails.logger.info "GET request uri with parameters=#{my_url}"
-    
+   
     uri = URI(my_url)
    
     http = Net::HTTP.new(uri.host, uri.port)
@@ -67,7 +56,7 @@ class Verse
     begin
       response = http.request(request)
 
-#      Rails.logger.info "#{response.code}"
+      Rails.logger.info "GET request uri with parameters=#{my_url} and response = #{response.code}"
       # CODEON: maybe later, more in-depth error info here
       # CONVERSION FROM CODE TO OBJECT
       #   Net::HTTPResponse::CODE_TO_OBJ => {"100"=>Net::HTTPContinue, "101"=>Net::HTTPSwitchProtocol...      
@@ -100,17 +89,25 @@ class Verse
       false
     end   
 
-#    Rails.logger.debug "response=#{response}"
+#    Rails.logger.debug "response.body=#{response.body}"
     
-    data = response.body
+    if response.body != "NULL"
+      # the external API isn't parsed successfully by the JSON because
+      # of the parentheses and semicolon that come with the response
+      response.body = response.body.gsub(/[\(\);]/,"")
 
-    # the external API isn't parsed successfully by the JSON because
-    # of the parentheses and semicolon that come with the response
-    data = data.gsub(/[\(\);]/,"")
+#      Rails.logger.debug "cleaned up body = #{response.body}"
 
-#    Rails.logger.debug "cleaned up body = #{data}"
-
-    json = JSON.parse(data)
+      json = { 
+        "result" => JSON.parse(response.body), 
+        "success" => true
+      }
+    else
+      json = { 
+        "result" => "", 
+        "success" => false
+      }
+    end
 
 #    Rails.logger.debug "response json=#{json}"
 

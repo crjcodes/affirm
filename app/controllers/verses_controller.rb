@@ -1,4 +1,5 @@
 class VersesController < ApplicationController
+ 
   def show
     # take the keyword sent with the show,
     # get a list of bible references from the affirm db
@@ -18,15 +19,17 @@ class VersesController < ApplicationController
     verse_ref_list = VerseRef.where(keyword_id: @k_id)
     verse_ref_list.each do |verse_ref|
       v = Verse.new
-      hashkey = verse_ref.verse_ref
-      @results[hashkey] = v.get_passage(hashkey)
-
-#      Rails.logger.debug "In loop for " + verse_ref.verse_ref
+      passage = v.get_passage(verse_ref.verse_ref)
+      if !passage.empty?
+        @results[verse_ref.verse_ref] = passage
+      else
+        Rails.logger.error "'#{verse_ref.verse_ref}' not found."
+      end
     end
 
-    @results.each do | br, v |
-#      Rails.logger.debug "br=#{br}, verse=#{v}"
+    if @results.empty?
+      Rails.logger.error "No results!"
+      # CODEON: redirect to error page if no results
     end
-
   end
 end

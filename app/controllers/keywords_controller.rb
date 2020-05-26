@@ -1,5 +1,5 @@
 class KeywordsController < ApplicationController
   def show
-    @keywords = Keyword.all    
+    @keywords = Keyword.order(:keyword)    
   end
 end

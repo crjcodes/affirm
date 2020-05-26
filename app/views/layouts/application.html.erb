@@ -11,7 +11,7 @@
 
   <body>
     <div class="aff-header">
-      <img src="<%= asset_path('aff_logo.png') %>">
+      <%= link_to image_tag("aff_logo.png"), root_path %>
       <!-- div class="aff-tagline">
         Find encouragement and support for your life.
       </div -->
@@ -20,7 +20,12 @@
       <%= yield %>
     </div>
     <div class="aff-footer">    
-      <em>A demo web app to support the portfolio of crjcodes at <a href="https://codeonward.com">CodeOnward.com</a> and <a href="https://github.com/crjcodes?tab=repositories">GitHub</a></em>
+      <div class="credit">A demo web app to support the portfolio of crjcodes at <a href="https://codeonward.com">CodeOnward.com</a> and <a href="https://github.com/crjcodes?tab=repositories">GitHub</a></div>
+      <div class="use">
+        <span>Please use for non-commercial purposes.  </span>
+      </div>
+      <div class="version">v0.0.4-alpha
+      </div>
     </div>
   </body>
 </html>
