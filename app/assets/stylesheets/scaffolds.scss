@@ -60,6 +60,23 @@ a:hover {
   color: $dark_blue;
 }
 
+.aff-footer {
+  color: $emerald;
+}
+
+.aff-footer .credit {
+  color: $wine;
+}
+
+.aff-footer .use {
+  background-color: $med-light;
+  color: $dark;
+}
+
+.aff-footer .version {
+  color: $med;
+}
+
 //--------------------------------
 //  TYPOGRAPHY
 
@@ -99,6 +116,20 @@ button, input {
   font-size: 120%;
   font-weight: bolder;
 }
+
+.aff-footer {
+  font-size: smaller;
+}
+
+.aff-footer .credit {
+  font-style: italic;
+  font-size: larger;
+}
+
+.aff-footer .version {
+  font-size: x-small;
+}
+
 
 //================================
 // LAYOUT
@@ -188,7 +219,6 @@ p {
   @include margin-left(.01rem);  
 }
 
-
 .aff-header, .aff-footer, .aff-content {
   box-shadow: 0 7px 7px 0 $shadow-color, 0 8px 22px 0 $light-shadow-color;
 }
@@ -198,6 +228,7 @@ p {
 .passage { 
   border: 1px solid;
   border-radius: $border-rad;
+  @include padding-top(.8rem);
   @include margin(.8rem); 
 }
 .verse { 
@@ -206,4 +237,13 @@ p {
 .ref { 
   text-align: right;
   @include padding(1.2rem 2.0rem 1.5rem 2.5rem); 
+}
+
+.aff-footer .version {
+  @include padding-left(1.2rem);
+}
+
+.aff-footer .use {
+  @include margin(1.5rem 0rem .05rem 0rem);
+  @include padding(.4rem 1.2rem .4rem 1.2rem);
 }
