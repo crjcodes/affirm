@@ -11,22 +11,24 @@ class VersesController < ApplicationController
     # CODEON: validate returned list, including
     # CODEON: error if number of keyword records returned is 0
 
-    kw = @kword[0].keyword;
+    @keyword = @kword[0].keyword;
 
-    @results = {}
+    @results = Hash.new
 
     Verse.initialize
 
     verse_ref_list = VerseRef.where(keyword_id: @k_id)
     verse_ref_list.each do |verse_ref|
       v = Verse.new
-      p "In loop for " + verse_ref.verse_ref
-      #p ":::" + 
       hashkey = verse_ref.verse_ref
-      @results[hashkey] = v.get(hashkey)
+      @results[hashkey] = v.get_passage(hashkey)
+
+      Rails.logger.debug "In loop for " + verse_ref.verse_ref
     end
 
-    p "results = #{@results}"
+    @results.each do | br, v |
+      Rails.logger.debug "br=#{br}, verse=#{v}"
+    end
 
   end
 end

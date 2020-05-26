@@ -1,9 +1,12 @@
-<h1>--keyword here--</h1>
+<h1>Scriptural Passages</h1>
 
-<p>--List of verses here</p>
-<ul>
+<h2><%= @keyword.humanize %></h2>
 
-</ul>
-
+<div class="passage">
+<% @results.each do |b_ref, verse| %>
+  <div class="verse"><%= verse %></div>
+  <div class="ref"><%= b_ref %></div>
+<% end %>
+</div>
 
 

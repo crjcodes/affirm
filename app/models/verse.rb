@@ -4,6 +4,7 @@
 #   http://getbible.net/json?passage=Jn3:16
 
 require 'net/https'
+require 'json'
 
 class Verse
 
@@ -13,24 +14,45 @@ class Verse
     @@source = "https://getbible.net/json"
   end
   
+
+  def get_passage(verse_ref)
+
+    json = get(verse_ref)
+
+    # CODEON: json validation needed
+
+    result = ""
+
+    Rails.logger.debug ">>>>>json=#{json}"
+    Rails.logger.debug "-----------------------------"
+
+    item = json["book"][0]["chapter"]
+
+    item.each do |key, val|      
+      item[key].each do |k2, v2|
+        if k2 == "verse"
+          result.concat(v2)
+        end
+      end
+    end
+
+    Rails.logger.debug "------------------result= #{result}"     
+
+    return result
+  end
+
   def get(verse_ref)
     
     # CODEON: validate @@source
 
     my_url = @@source
-
-    p "uri to start ===#{my_url}==="
-
     my_url.concat "?passage=" + URI.encode(verse_ref)
     my_url.concat "&type=json"
 
-    p "uri with parameters ===#{my_url}==="
+    Rails.logger.info "GET request uri with parameters=#{my_url}"
     
     uri = URI(my_url)
-
-    p "-------------------------------------"
-    p "uri = " + "#{uri.request_uri}"
-    
+   
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
@@ -41,44 +63,53 @@ class Verse
     begin
       response = http.request(request)
 
+      Rails.logger.info "#{response.code}"
       # CODEON: maybe later, more in-depth error info here
       # CONVERSION FROM CODE TO OBJECT
       #   Net::HTTPResponse::CODE_TO_OBJ => {"100"=>Net::HTTPContinue, "101"=>Net::HTTPSwitchProtocol...      
+      # CODEON: switch Net:: return values, i.e. HTTPSuccess, Net::HTTPUnauthorized, Net::HTTPServerError
 
-      case response.code
+      case response.code.to_i
       when 200..299
-        puts "Success!"      
+        Rails.logger.info "GET query response successful for #{uri.inspect}"      
       when 300..499
-        puts "Client error: #{response.code}"
+        Rails.logger.error "Client error: #{response.code}"
         # CODEON: re-route to client error page and logging action
       when 500..599
-        puts "Server error: #{response.code}"
+        Rails.logger.error "Server error: #{response.code}"
         # CODEON: re-route to server error page
       when 100..199
-        puts "Information message: #{response.code}"
+        Rails.logger.info "Information message: #{response.code}"
         # CODEON: re-route to general error page, something went wrong
       else
-        puts "Unknown error: #{response.code}"
+        Rails.logger.error "Unknown error: #{response.code}"
       end
 
     rescue Errno::ECONNREFUSED
-      puts "Affirm tried to talk to the Bible service, but it's not responding right now.  Try back later."
+      Rails.logger.error "Affirm tried to talk to the Bible service, but it's not responding right now.  Try back later."
       # CODEON: re-route to server error page
       false
     rescue StandardError, Exception
-      puts "Something went wrong"
+      Rails.logger.error "Something went wrong"
       # call on Affirm's public page for "Unknown error -- Something went wrong"
       # CODEON: re-route to general error page, something went wrong
       false
     end   
 
-    p "-------------------------------------"
-    p "code=#{response.code}"
-    p "message=#{response.message}"
-    p "content_type=#{response.content_type}"
-    p "body=#{response.body}"
-    p "location=#{response.header['location']}"
+#    Rails.logger.debug "response=#{response}"
+    
+    data = response.body
 
-    return response.body
+    # the external API isn't parsed successfully by the JSON because
+    # of the parentheses and semicolon that come with the response
+    data = data.gsub(/[\(\);]/,"")
+
+    Rails.logger.debug "cleaned up body = #{data}"
+
+    json = JSON.parse(data)
+
+#    Rails.logger.debug "response json=#{json}"
+
+    return json
   end
 end
