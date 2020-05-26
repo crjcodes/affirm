@@ -15,19 +15,17 @@ class VersesController < ApplicationController
 
     @results = Hash.new
 
-    Verse.initialize
-
     verse_ref_list = VerseRef.where(keyword_id: @k_id)
     verse_ref_list.each do |verse_ref|
       v = Verse.new
       hashkey = verse_ref.verse_ref
       @results[hashkey] = v.get_passage(hashkey)
 
-      Rails.logger.debug "In loop for " + verse_ref.verse_ref
+#      Rails.logger.debug "In loop for " + verse_ref.verse_ref
     end
 
     @results.each do | br, v |
-      Rails.logger.debug "br=#{br}, verse=#{v}"
+#      Rails.logger.debug "br=#{br}, verse=#{v}"
     end
 
   end

@@ -53,11 +53,11 @@ a:hover {
 }
 
 .verse {
-  color: $dark_blue;
+  color: $emerald;
 }
 
 .ref {
-  color: $emerald;
+  color: $dark_blue;
 }
 
 //--------------------------------
@@ -90,9 +90,14 @@ button, input {
   font-style: italic;  
 }
 
+.verse {
+  font-size: 110%;
+  line-height: 1.7rem;
+}
 .ref {
   font-style: italic;
-  font-size: 110%;
+  font-size: 120%;
+  font-weight: bolder;
 }
 
 //================================
@@ -192,7 +197,7 @@ p {
 
 .passage { 
   border: 1px solid;
-  border-radius: 3px;
+  border-radius: $border-rad;
   @include margin(.8rem); 
 }
 .verse { 

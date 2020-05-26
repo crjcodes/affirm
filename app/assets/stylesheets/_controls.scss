@@ -82,7 +82,7 @@ select option {
     font-weight: bolder;
     background-color: $ctrl-highlight-color;
     border: 1px solid $ctrl-highlight-color;
-    border-radius: 3px;
+    border-radius: $border-rad;
     box-shadow: 0 7px 7px 0 $ctrl-shadow-color, 0 8px 22px 0 $ctrl-light-shadow-color;
   }
 
