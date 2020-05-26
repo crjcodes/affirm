@@ -10,14 +10,20 @@ VerseRef.destroy_all
 Keyword.destroy_all
 
 keywords_to_seed = {
-  "anxiety"=>[ "Proverbs 3:26" ],
-  "community"=>[ "1 John 1:7", "Hebrews 13:1-2", "1 Peter 4:9", "Hebrews 10:24-25", "1 Thessalonians 5:14", "Matthew 18:20"],
-  "encouragement"=>[ "Proverbs 3:26", "Psalm 51:10", "Hebrews 13:15" ],
-  "fear"=>[ "Isaiah 41:10" ],
-  "endurance"=>[ "Psalm 51:10"],
+  "anxiety"=>[ "1 Corinthians 7:32", "Proverbs 3:26", "Psalms 94:19", "Hebrews 13:6", "Proverbs 3:26", "Psalms 43:5", "Isaiah 41:10" ],
+  "community"=>[ "1 John 1:7", "Hebrews 13:1-2", "1 Peter 4:9", "Hebrews 10:24-25", "1 Thessalonians 5:14", 
+    "Matthew 18:20", "Ephesians 4:2-4", "Romans 15:5-7"],
+  "encouragement"=>[ "Proverbs 3:26", "Proverbs 3:26", "Psalms 51:10", "Hebrews 13:15", 
+    "Psalms 71:20", "Hebrews 10:24-25", "1 Thessalonians 5:14" ],
+  "fear"=>[ "Isaiah 41:10", "Hebrews 13:6", "1 Corinthians 7:32", "2 Corinthians 10:12", "Psalms 43:5" ],
+  "endurance"=>[ "Psalms 51:10"],
   "giving"=>["2 Corinthians 9:6-7"],
   "loneliness"=>[ "Hebrews 13:15" ],
-  "thought"=>[ "2 Timothy 2:7" ]
+  "thought"=>[ "2 Timothy 2:7" ],
+  "money"=>[ "Hebrews 13:5" ],
+  "contentment"=>[ "Hebrews 13:5" ],
+  "strength" =>[ "Psalms 71:20", "Proverbs 3:26", "Psalms 51:10" ],
+  "healing" =>[ "Psalms 71:20"]
 }
 
 
