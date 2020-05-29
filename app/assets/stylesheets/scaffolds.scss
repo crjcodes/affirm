@@ -1,7 +1,13 @@
-@import 'reset';
-@import "../node_modules/rfs/scss";
+//@import 'reset';
+@import '../node_modules/rfs/scss';
 @import 'base';
 @import 'controls';
+
+
+//===============================
+//    RESPONSIVE VIA RFS on GitHub
+//       https://github.com/twbs/rfs
+//       Installed in node_modules
 
 //================================
 // APPLY THEMED ELEMENTS
@@ -11,7 +17,7 @@
 
 html {
   background-color: $back-back-color;
-  color: $fore-color; 
+  color: $fore-color;
 }
 
 body {
@@ -19,7 +25,6 @@ body {
   color: $fore-color; 
 }  
 
-  
 h1, h2, h3, h4, h5, h6 {
   color: $back-color;
   background-color: $standout-color;
@@ -40,12 +45,6 @@ a:hover {
   background-color: $back-color;
   color: $fore-color;  
 }
-
-.select-wrapper {
-  background-color: $emerald;
-  border-color: $control-border-color;
-}
-
 
 .passage {
   border-color: $gold;  
@@ -81,18 +80,22 @@ a:hover {
 //  TYPOGRAPHY
 
 html {
-  font-size: $font-size; 
+  @include font-size($font-size); 
   font-family: $font-stack;
-  line-height: $line-height;
+  line-height: 1.7;
 }
 
-body { line-height: $line-height; }
+body {
+  @include font-size($font-size); 
+  font-family: $font-stack;
+  line-height: 1.7;  
+}
 
-h1 { @include font-size($h1-size); }
-h2 { @include font-size($h2-size); }
-h3 { @include font-size($h3-size); }
-h4 { @include font-size($h4-size); }
-h5 { @include font-size($h5-size); }
+h1 { @include font-size($h1); }
+h2 { @include font-size($h2); }
+h3 { @include font-size($h3); }
+h4 { @include font-size($h4); }
+h5 { @include font-size($h5); }
 
 em { 
   @include font-size(1.05rem);
@@ -108,22 +111,24 @@ button, input {
 }
 
 .verse {
-  font-size: 110%;
-  line-height: 1.7rem;
+  @include font-size(1.2rem);
+  line-height: 1.7;
+  font-weight: 400;
 }
 .ref {
   font-style: italic;
-  font-size: 120%;
+  @include font-size(1.4rem);
   font-weight: bolder;
 }
 
 .aff-footer {
-  font-size: smaller;
+  @include font-size(.8rem);
+  line-height: 1.5;
 }
 
 .aff-footer .credit {
   font-style: italic;
-  font-size: larger;
+  @include font-size(1rem);
 }
 
 .aff-footer .version {

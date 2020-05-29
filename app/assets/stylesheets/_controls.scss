@@ -1,9 +1,9 @@
-@import 'base';
 @import '../node_modules/rfs/scss';
+@import 'base';
 
-
-$ctrl-font-size: 1.11rem;
-$ctrl-line-height: 2.4rem;
+$ctrl-font-size: 1.5rem;
+$ctrl-line-height: 2.0rem;
+$ctrl-height: 25rem;
 
 $ctrl-font-color: $light;
 $ctrl-border-color: $wine;
@@ -18,10 +18,11 @@ $ctrl-border-width: .063rem;
 $ctrl-width: 100%;
 $ctrl-min-width: 25rem; 
 $ctrl-max-width: 30rem;
-$ctrl-height: 100%;
 $ctrl-font-size: 1.05rem;
 $ctrl-right: 0rem;
 $ctrl-top: .6rem;
+
+$ctrl-padding: .4rem;
 
 $ctrl-opt-back: $accent-color;
 $ctrl-opt-fore: $standout-color;
@@ -40,7 +41,6 @@ $ctrl-opt-fore: $standout-color;
 
     display: block;
     position: relatve;
-
 }
 
 .select_wrapper select {
@@ -52,20 +52,21 @@ $ctrl-opt-fore: $standout-color;
     border-style: solid;    
 
     font-weight: bold;
+    font-size: larger;
 
     @include rfs($ctrl-border-width, border-width);
 
     @include rfs($ctrl-font-size, font-size);
-    @include rfs($ctrl-line-height, line-height);
+    line-height: $ctrl-line-height;
     -ms-word-break: normal;
-    word-break: normal;
+    word-break: normal; 
 
     display: block;
     width: 100%;
 
     @include rfs($ctrl-max-width, max-width);
     margin: 0;
-    @include rfs(.4rem .4rem, padding);
+    @include rfs($ctrl-padding $ctrl-padding, padding);
 
     
     select:active, select.active {
@@ -73,10 +74,26 @@ $ctrl-opt-fore: $standout-color;
     }
 }
 
+// the height above doesn't work well in all browsers, so
+// here's a solution based on
+//   https://stackoverflow.com/questions/20477823/select-html-element-with-height
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {  /*safari and chrome*/
+  .select_wrapper select  {
+    height: $ctrl-height;
+    line-height: $ctrl-line-height;
+    background-color: $ctrl-fill-color;
+  } 
+}
+@-moz-document url-prefix() { /* targets Firefox only */
+  .select_wrapper select {
+    @include padding($ctrl-padding 0 !important)    
+  }
+}
+
 select option {
   @include rfs(.5rem .8rem, padding);
   @include rfs(1.1rem .5rem, margin);
-
   
   &:checked {
     font-weight: bolder;
@@ -91,6 +108,7 @@ select option {
     background-color: $ctrl-back-color;
   }
 }
+
 
 .aff-button {
     @include padding(.4rem .7rem);
