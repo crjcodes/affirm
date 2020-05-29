@@ -107,7 +107,18 @@ select option {
     font-weight: normal;
     background-color: $ctrl-back-color;
   }
+ 
 }
+
+select option[disabled], select option:disabled, select option:invalid {
+  color: $wine;
+  background-color: $light;
+  font-weight: bolder;
+  border: 1px solid $ctrl-highlight-color;
+  border-radius: $border-rad;
+  box-shadow: 0 7px 7px 0 $ctrl-shadow-color, 0 8px 22px 0 $ctrl-light-shadow-color;
+}
+
 
 
 .aff-button {

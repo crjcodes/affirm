@@ -1,12 +1,24 @@
 <h1>Welcome</h1>
 <P>Want some encouraging Bible verses?  Just select your topic below.</P>
+
 <%= form_tag("/verses/show", method: "get") do %>
   <div class="select_wrapper">
-  <%= select_tag("keyword_id[]", 
-    options_for_select(@keywords.order(id: :desc).all.collect{ |k| [k.keyword.humanize, k.id] }),     
-    :autofocus => true, 
-    :required => true,
-    :size => 5
+  <%= 
+    prompt = "Select a keyword"
+    keyword_options = @keywords.order(id: :desc).all.collect{ |k| [k.keyword.humanize, k.id] }
+    keyword_options.prepend([prompt, ""])
+    Rails.logger.debug "ko=#{keyword_options}"
+
+    select_tag(
+      "keyword_id[]", 
+      options_for_select( 
+        keyword_options, 
+        :disabled => [prompt, ""]
+        ),           
+      { 
+        :required => true,
+        :size => 5
+      }      
     ) %>
   </div>
   <%= submit_tag "Show", class: "aff-button"%> 
