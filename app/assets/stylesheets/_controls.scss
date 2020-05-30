@@ -2,7 +2,10 @@
 @import 'base';
 @import 'v_browser';
 
-$ctrl-font-size: 1.2rem;
+
+$ctrl-font-size: 1.0rem;
+$ctrl-font-size-select: 1.5rem;
+$ctrl-font-size-option: 1.3rem;
 $ctrl-line-height: 2.0rem;
 $ctrl-height: 25rem;
 
@@ -10,7 +13,7 @@ $ctrl-font-color: $light;
 $ctrl-border-color: $wine;
 $ctrl-fill-color: $light;
 $ctrl-back-color: $dark_blue;
-$ctrl-border-color: $standout-color;
+$ctrl-border-color: $emerald;
 $ctrl-shadow-color: $dark-blue;
 $ctrl-light-shadow-color : $light-shadow-color;
 $ctrl-highlight-color: $gold;
@@ -19,7 +22,7 @@ $ctrl-border-width: .063rem;
 $ctrl-width: 100%;
 $ctrl-min-width: 25rem; 
 $ctrl-max-width: 30rem;
-$ctrl-font-size: 1.05rem;
+$ctrl-font-size: 2.0rem;
 $ctrl-right: 0rem;
 $ctrl-top: .6rem;
 
@@ -28,89 +31,95 @@ $ctrl-padding: .4rem;
 $ctrl-opt-back: $accent-color;
 $ctrl-opt-fore: $standout-color;
 
-
-
-.good_select_wrapper, .evil_select_wrapper {
-  @include margin(1rem 0 1rem 0);
-  @include rfs($ctrl-min-width, min-width);
-
-  display: block;
-  position: relatve;
+@mixin aff-font($stack, $size) {  
+  font-family: $stack;
+  @include font-size($size);
 }
 
-.good_select_wrapper select, .evil_select_wrapper select {
-    
-  border-color: $ctrl-border-color;
-  border-style: solid;    
+@mixin aff-border-shadow($aff-color) {
+  border: 1px solid $aff-color;
+  -moz-border-radius: $border-rad;
+  -webkit-border-radius: $border-rad;
+  -kthml-border-radius: $border-rad;
+  border-radius: $border-rad;
+  box-shadow: 0 7px 7px 0 $ctrl-shadow-color, 0 8px 22px 0 $ctrl-light-shadow-color;
+  
+}
 
-  margin: 0;
+//-----------------------------------------------------------------
+//  Making a nice and pretty select box showing multiple rows
+//  does not play well with mobile devices, so a dropdown is
+//  what I have to use to expedite this mini-project
 
-  @include rfs($ctrl-border-width, border-width);
+.aff-drop {
+  text-align: center;
+  @include aff-font($font-stack-alt, $ctrl-font-size);
+}
 
-  @include rfs($ctrl-font-size, font-size);
-  font-weight: bold;
+.aff-drop form {
+  font-family: $font-stack-alt;
+  @include aff-font($font-stack-alt, $ctrl-font-size);
 
+  display: inline-block;
+}
+
+.aff-drop-select select {
+  color: $ctrl-back-color;
+  background-color: $ctrl-font-color;
+  
+  font-family: $font-stack;
+  @include aff-font($font-stack-alt, $ctrl-font-size-select);
+  font-weight: bold;  
   line-height: $ctrl-line-height;
   -ms-word-break: normal;
-  word-break: normal; 
+  word-break: normal;   
 
-  display: block;
-  width: 100%;
-
-  select:active, select.active {
+  @include margin(1.5rem 1.5rem 3.0rem 1.5rem);
+  @include padding(1.2rem 2.5rem);  
+  @include aff-border-shadow($ctrl-border-color);
+ 
+  &:active, &.active {
     background-color: $highlight-color;
   }
-}
-.good_select_wrapper select option, .evil_select_wrapper select option {
-  @include rfs(.5rem .8rem, padding);
-  @include rfs(1.1rem .5rem, margin);  
-}
-
-.good_select_wrapper select {
-  color: $ctrl-font-color;
-  background-color: $ctrl-fill-color;
-  background-image: none;
-
-  @include rfs($ctrl-max-width, max-width);
-  @include rfs($ctrl-padding $ctrl-padding, padding);   
-}
-
-// the height above doesn't work well in all browsers, so
-// here's a solution based on
-//   https://stackoverflow.com/questions/20477823/select-html-element-with-height
-
-@media screen and (-webkit-min-device-pixel-ratio:0) {  /*safari and chrome*/
-  .good_select_wrapper select  {
-    height: $ctrl-height;
-    line-height: $ctrl-line-height;
-    background-color: $ctrl-fill-color;
-  } 
-}
-@-moz-document url-prefix() { /* targets Firefox only */
-  .good_select_wrapper select {
-    @include padding($ctrl-padding 0 !important)    
+  &:focus, &.focus {
+    background-color: $highlight-color;
   }
-}
-
-.good_select_wrapper select option {
   
-  &:checked {
-    font-weight: bolder;
-    background-color: $ctrl-highlight-color;
-    border: 1px solid $ctrl-highlight-color;
-    border-radius: $border-rad;
-    box-shadow: 0 7px 7px 0 $ctrl-shadow-color, 0 8px 22px 0 $ctrl-light-shadow-color;
-  }
-
-  &:not(:checked){
-    font-weight: normal;
-    background-color: $ctrl-back-color;
-  }
- 
 }
 
-.good_select_wrapper select option[disabled], select option:disabled, select option:invalid {
-  color: $wine;
+.aff-drop-select select option {
+  color: $ctrl-font-color;
+  background-color: $ctrl-back-color;
+
+  font-weight:normal;
+  @include aff-font($font-stack-alt, $ctrl-font-size-option);
+  @include padding(1rem .2rem 1rem .2rem);
+  @include margin(1rem .2rem 1rem .2rem);  
+
+  &:hover, &:active {
+    @include aff-border-shadow($ctrl-highlight-color);    
+  }
+}
+
+.aff-drop-select select option:checked, .aff-drop-select select option[checked] {
+  font-weight: bolder;
+  color: $ctrl-back-color;
+  background-color: $ctrl-font-color;
+  @include aff-border-shadow($ctrl-highlight-color);    
+}
+
+.aff-drop-select select option:not(:checked), 
+.aff-drop-select select option:not([checked]) {
+  font-weight: normal;
+  color: $ctrl-font-color;
+  background-color: $ctrl-back-color;
+  border-radius: 0;
+  box-shadow: 0;  
+}
+
+
+.aff-drop-select select option[disabled], .aff-drop-select select option:disabled, .aff-drop-select select option:invalid {
+  color: $dark;
   background-color: $light;
   font-weight: bolder;
   border: 1px solid $ctrl-highlight-color;
@@ -118,106 +127,34 @@ $ctrl-opt-fore: $standout-color;
   box-shadow: 0 7px 7px 0 $ctrl-shadow-color, 0 8px 22px 0 $ctrl-light-shadow-color;
 }
 
-//-------------------------------------------------------------------------------------------------------
-//  ANDROID CHROME HAS TAP SELECTBOX THAT IS NOT MULTIPLE ROWS IN HEIGHT
-//  So, here's an attempt at a select combobox styling for just android
-//  From https://www.filamentgroup.com/lab/select-css.html
-
-.evil_select_wrapper select {
-  color: $ctrl-back-color;
-  background-color: $ctrl-font-color;
-
-	font-weight: 700;
-	max-width: 100%;
-	box-sizing: border-box;
-	box-shadow: 0 1px 0 1px rgba(0,0,0,.04);
-  border-radius: .5em;
-  
-	-moz-appearance: none;
-	-webkit-appearance: none;
-	appearance: none;
-	background-color: $light;
-	background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'),
-	  linear-gradient(to bottom, $light 0%,#e5e5e5 100%);
-	background-repeat: no-repeat, repeat;
-	background-position: right .7em top 50%, 0 0;
-	background-size: .65em auto, 100%;
-
-  @include padding(.5rem 1rem);
-}
-.evil_select_wrapper::-ms-expand {
-	display: none;
-}
-.evil_select_wrapper:hover {
-	border-color: $med-light;
-}
-.evil_select_wrapper:focus {
-	border-color: $gold;
-	box-shadow: 0 0 1px 3px rgba(59, 153, 252, .7);
-	box-shadow: 0 0 0 3px -moz-mac-focusring;
-	color: $dark;
-	outline: none;
-}
-.evil_select_wrapper option {
-  font-weight:normal;
-  @include padding(1rem .2rem 1rem .2rem);
-  @include margin(1rem .2rem 1rem .2rem);
-}
-
-//-----------------------------------------------------------------
-// switch off the good-looking select fpr Chrome on Andriod
-
-.good_box {
-  display: block;
-  @include browser(Android) {
-    display: none;
-  }
-}
-
-.evil_box {
-  display: none;
-  @include browser(Android) {
-    display: block;
-  }
-}
-
 //-----------------------------------------------------------------
 //  SUBMIT BUTTON
+//    Partly from https://css-tricks.com/overriding-default-button-styles/
 
 .aff-button {
-    @include padding(.4rem .7rem);
-    
-    border-radius: 6px;
-    //box-shadow: 0 4px 4px 0 $ctrl-shadow-color, 0 8px 22px 0 $ctrl-light-shadow-color;
-}
+  background-color: $ctrl-back-color;
+  color: $ctrl-font-color;
 
-/* 
-  From 
-     https://css-tricks.com/overriding-default-button-styles/
-*/
-.aff-button  {
-    
-    background: $ctrl-back-color;
-    color: $ctrl-font-color;
+  @include aff-font($font-stack-alt, $ctrl-font-size);
+  font-weight: normal;
 
-    border: 1px solid $ctrl-border-color;
+  @include padding(.4rem .7rem);    
+  @include aff-border-shadow($ctrl-border-color);
 
-    font-weight: bold;
-    font-size: 1.2rem;
+  display: inline-block;
+  padding: .8rem 1.7rem;
+  margin: 0 auto;
+  text-decoration: none;
 
-    display: inline-block;
-    padding: .8rem 1.7rem;
-    margin: 0;
-    text-decoration: none;
+  cursor: pointer;
+  text-align: center;
+  transition: background 250ms ease-in-out, 
+              transform 150ms ease;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 
-    cursor: pointer;
-    text-align: center;
-    transition: background 250ms ease-in-out, 
-                transform 150ms ease;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-
-    box-shadow: 0 4px 4px 0 $ctrl-shadow-color, 0 7px 9px 0 $ctrl-light-shadow-color;    
+  border-width: 1px;
+  box-shadow: 0 4px 4px 0 $ctrl-shadow-color, 0 7px 9px 0 $ctrl-light-shadow-color;    
 }
 
 .aff-button:hover,

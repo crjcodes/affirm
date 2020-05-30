@@ -1,43 +1,27 @@
 <h1>Welcome</h1>
 <P>Want some encouraging Bible verses?  Just select your topic below.</P>
 
-<div class="good_box">
+<div class="aff-drop">
+  <%= form_tag("/verses/show", method: "get") do %>
+    <div class="aff-drop-select">
+    <%= 
+      prompt = "Select a keyword"
+      keyword_options = @keywords.order(id: :desc).all.collect{ |k| [k.keyword.humanize, k.id] }
+#      keyword_options.prepend([prompt,""])
 
-<%= form_tag("/verses/show", method: "get") do %>
-  <div class="good_select_wrapper">
-  <%= 
-    keyword_options = @keywords.order(id: :desc).all.collect{ |k| [k.keyword.humanize, k.id] }
-
-    select_tag(
-      "keyword_id[]", 
-      options_for_select( 
-        keyword_options
-        ),           
-      { 
-        :required => true,
-        :size => 5
-      }      
-    ) %>
-  </div>
+      select_tag(
+        "keyword_id[]", 
+        options_for_select( 
+            keyword_options, {
+#              disabled: [prompt, ""]
+            }
+          ),           
+        { 
+          required: true,
+          prompt: prompt
+        }      
+      ) %>
+    </div>
   <%= submit_tag "Show", class: "aff-button"%> 
-<% end %>
-</div>
-<div class="evil_box">
-<%= form_tag("/verses/show", method: "get") do %>
-  <div class="evil_select_wrapper">
-  <%= 
-    keyword_options = @keywords.order(id: :desc).all.collect{ |k| [k.keyword.humanize, k.id] }
-
-    select_tag(
-      "keyword_id[]", 
-      options_for_select( 
-        keyword_options
-        ),           
-      { 
-        :required => true,
-      }      
-    ) %>
-  </div>
-<%= submit_tag "Show", class: "aff-button"%> 
-<% end %>
+  <% end %>
 </div>

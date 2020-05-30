@@ -80,15 +80,14 @@ a:hover {
 //  TYPOGRAPHY
 
 html {
-  @include font-size($font-size); 
   font-family: $font-stack;
-  line-height: 1.7;
+  line-height: $line-height;
 }
 
 body {
   @include font-size($font-size); 
   font-family: $font-stack;
-  line-height: 1.7;  
+  line-height: $line-height;  
 }
 
 h1 { @include font-size($h1); }
@@ -112,7 +111,7 @@ button, input {
 
 .verse {
   @include font-size(1.2rem);
-  line-height: 1.7;
+  line-height: $line-height;
   font-weight: 400;
 }
 .ref {
@@ -123,7 +122,7 @@ button, input {
 
 .aff-footer {
   @include font-size(.8rem);
-  line-height: 1.5;
+  line-height: 1.5em;
 }
 
 .aff-footer .credit {
@@ -237,7 +236,7 @@ p {
   @include margin(.8rem); 
 }
 .verse { 
-  @include padding(1.2rem 2.0rem .02rem 2.0rem); 
+  @include padding(2.8rem 2.5rem .02rem 2.5rem); 
 }
 .ref { 
   text-align: right;
