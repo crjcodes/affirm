@@ -1,7 +1,8 @@
 @import '../node_modules/rfs/scss';
 @import 'base';
+@import 'v_browser';
 
-$ctrl-font-size: 1.5rem;
+$ctrl-font-size: 1.2rem;
 $ctrl-line-height: 2.0rem;
 $ctrl-height: 25rem;
 
@@ -27,51 +28,51 @@ $ctrl-padding: .4rem;
 $ctrl-opt-back: $accent-color;
 $ctrl-opt-fore: $standout-color;
 
-.select_wrapper {
 
-    @include padding-top(.3rem);
-    @include padding-bottom(2rem);
-    @include padding-right(.3rem);
-    @include padding-left(.3rem);
 
-    @include rfs(0 0 0 0, margin);
+.good_select_wrapper, .evil_select_wrapper {
+  @include margin(1rem 0 1rem 0);
+  @include rfs($ctrl-min-width, min-width);
 
-    @include rfs($ctrl-min-width, min-width);
-    @include rfs($ctrl-min-width, min-width);
-
-    display: block;
-    position: relatve;
+  display: block;
+  position: relatve;
 }
 
-.select_wrapper select {
+.good_select_wrapper select, .evil_select_wrapper select {
     
-    color: $ctrl-font-color;
-    background-color: $ctrl-fill-color;
-    background-image: none;
-    border-color: $ctrl-border-color;
-    border-style: solid;    
+  border-color: $ctrl-border-color;
+  border-style: solid;    
 
-    font-weight: bold;
-    font-size: larger;
+  margin: 0;
 
-    @include rfs($ctrl-border-width, border-width);
+  @include rfs($ctrl-border-width, border-width);
 
-    @include rfs($ctrl-font-size, font-size);
-    line-height: $ctrl-line-height;
-    -ms-word-break: normal;
-    word-break: normal; 
+  @include rfs($ctrl-font-size, font-size);
+  font-weight: bold;
 
-    display: block;
-    width: 100%;
+  line-height: $ctrl-line-height;
+  -ms-word-break: normal;
+  word-break: normal; 
 
-    @include rfs($ctrl-max-width, max-width);
-    margin: 0;
-    @include rfs($ctrl-padding $ctrl-padding, padding);
+  display: block;
+  width: 100%;
 
-    
-    select:active, select.active {
-        background-color: $highlight-color;
-    }
+  select:active, select.active {
+    background-color: $highlight-color;
+  }
+}
+.good_select_wrapper select option, .evil_select_wrapper select option {
+  @include rfs(.5rem .8rem, padding);
+  @include rfs(1.1rem .5rem, margin);  
+}
+
+.good_select_wrapper select {
+  color: $ctrl-font-color;
+  background-color: $ctrl-fill-color;
+  background-image: none;
+
+  @include rfs($ctrl-max-width, max-width);
+  @include rfs($ctrl-padding $ctrl-padding, padding);   
 }
 
 // the height above doesn't work well in all browsers, so
@@ -79,21 +80,19 @@ $ctrl-opt-fore: $standout-color;
 //   https://stackoverflow.com/questions/20477823/select-html-element-with-height
 
 @media screen and (-webkit-min-device-pixel-ratio:0) {  /*safari and chrome*/
-  .select_wrapper select  {
+  .good_select_wrapper select  {
     height: $ctrl-height;
     line-height: $ctrl-line-height;
     background-color: $ctrl-fill-color;
   } 
 }
 @-moz-document url-prefix() { /* targets Firefox only */
-  .select_wrapper select {
+  .good_select_wrapper select {
     @include padding($ctrl-padding 0 !important)    
   }
 }
 
-select option {
-  @include rfs(.5rem .8rem, padding);
-  @include rfs(1.1rem .5rem, margin);
+.good_select_wrapper select option {
   
   &:checked {
     font-weight: bolder;
@@ -110,7 +109,7 @@ select option {
  
 }
 
-select option[disabled], select option:disabled, select option:invalid {
+.good_select_wrapper select option[disabled], select option:disabled, select option:invalid {
   color: $wine;
   background-color: $light;
   font-weight: bolder;
@@ -119,7 +118,71 @@ select option[disabled], select option:disabled, select option:invalid {
   box-shadow: 0 7px 7px 0 $ctrl-shadow-color, 0 8px 22px 0 $ctrl-light-shadow-color;
 }
 
+//-------------------------------------------------------------------------------------------------------
+//  ANDROID CHROME HAS TAP SELECTBOX THAT IS NOT MULTIPLE ROWS IN HEIGHT
+//  So, here's an attempt at a select combobox styling for just android
+//  From https://www.filamentgroup.com/lab/select-css.html
 
+.evil_select_wrapper select {
+  color: $ctrl-back-color;
+  background-color: $ctrl-font-color;
+
+	font-weight: 700;
+	max-width: 100%;
+	box-sizing: border-box;
+	box-shadow: 0 1px 0 1px rgba(0,0,0,.04);
+  border-radius: .5em;
+  
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	appearance: none;
+	background-color: $light;
+	background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'),
+	  linear-gradient(to bottom, $light 0%,#e5e5e5 100%);
+	background-repeat: no-repeat, repeat;
+	background-position: right .7em top 50%, 0 0;
+	background-size: .65em auto, 100%;
+
+  @include padding(.5rem 1rem);
+}
+.evil_select_wrapper::-ms-expand {
+	display: none;
+}
+.evil_select_wrapper:hover {
+	border-color: $med-light;
+}
+.evil_select_wrapper:focus {
+	border-color: $gold;
+	box-shadow: 0 0 1px 3px rgba(59, 153, 252, .7);
+	box-shadow: 0 0 0 3px -moz-mac-focusring;
+	color: $dark;
+	outline: none;
+}
+.evil_select_wrapper option {
+  font-weight:normal;
+  @include padding(1rem .2rem 1rem .2rem);
+  @include margin(1rem .2rem 1rem .2rem);
+}
+
+//-----------------------------------------------------------------
+// switch off the good-looking select fpr Chrome on Andriod
+
+.good_box {
+  display: block;
+  @include browser(Android) {
+    display: none;
+  }
+}
+
+.evil_box {
+  display: none;
+  @include browser(Android) {
+    display: block;
+  }
+}
+
+//-----------------------------------------------------------------
+//  SUBMIT BUTTON
 
 .aff-button {
     @include padding(.4rem .7rem);
