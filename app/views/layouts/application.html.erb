@@ -3,8 +3,8 @@
   <head>
     <title>Affirm</title>
     <%= csrf_meta_tags %>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <script>document.documentElement.setAttribute("data-browser", navigator.userAgent);</script>
@@ -26,8 +26,14 @@
       <div class="use">
         <span>Please use for non-commercial purposes.  </span>
       </div>
-      <div class="version">v0.0.7-alpha
+      <div class="version">
+      <span>v0.0.8-alpha</span>
+      <span class="aff-screen-xs">(malachite)</span>
+      <span class="aff-screen-sm">(pebble)</span>
+      <span class="aff-screen-md">(boulder)</span>
+      <span class="aff-screen-lg">(rockface)</span>
       </div>
+
     </div>
     </div>
   </body>
