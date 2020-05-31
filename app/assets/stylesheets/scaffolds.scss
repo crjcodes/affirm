@@ -1,5 +1,4 @@
-//@import 'reset';
-@import '../node_modules/rfs/scss';
+@import 'reset';
 @import 'base';
 @import 'controls';
 
@@ -32,14 +31,9 @@ h1, h2, h3, h4, h5, h6 {
 
 em { color: $standout-color; }
 
-a {
-  color: $standout-color; }
-
-a:visited {
-  color: $accent-color; }
-
-a:hover {
-  color: $highlight-color; }
+a { color: $standout-color; }
+a:visited { color: $accent-color; }
+a:hover { color: $highlight-color; }
 
 .aff-header, .aff-content, .aff-footer  {
   background-color: $back-color;
@@ -51,21 +45,10 @@ a:hover {
   box-shadow: 0 7px 7px 0 $ctrl-shadow-color, 0 8px 22px 0 $ctrl-light-shadow-color;
 }
 
-.verse {
-  color: $emerald;
-}
-
-.ref {
-  color: $dark_blue;
-}
-
-.aff-footer {
-  color: $emerald;
-}
-
-.aff-footer .credit {
-  color: $wine;
-}
+.verse { color: $emerald; }
+.ref { color: $dark_blue; }
+.aff-footer { color: $emerald;}
+.aff-footer .credit { color: $wine; }
 
 .aff-footer .use {
   background-color: $med-light;
@@ -79,59 +62,117 @@ a:hover {
 //--------------------------------
 //  TYPOGRAPHY
 
+$display_xs: true;
+
 html {
   font-family: $font-stack;
-  line-height: $line-height;
+  font-size: $font-size;
 }
-
+* {
+  line-height: 1.7em;
+}
 body {
-  @include font-size($font-size); 
   font-family: $font-stack;
-  line-height: $line-height;  
+  @include break(sm) { font-size: 1.1rem;}
+  @include break(md) { font-size: 1.3rem;}
+  @include break(lg) { font-size: 1.5rem;}
 }
 
-h1 { @include font-size($h1); }
-h2 { @include font-size($h2); }
-h3 { @include font-size($h3); }
-h4 { @include font-size($h4); }
-h5 { @include font-size($h5); }
+// for issue tracking 
+.aff-screen-xs {
+  display: inline;
+  @include break(sm) { display: none; }
+  @include break(md) { display: none; }
+  @include break(lg) { display: none; }
+}
+
+.aff-screen-sm {
+  @include break(sm) { display: inline; }
+  @include break(md) { display: none; }
+  @include break(lg) { display: none; }
+}
+
+.aff-screen-md {
+  @include break(sm) { display: none; }
+  @include break(md) { display: inline; }
+  @include break(lg) { display: none; }
+}
+
+.aff-screen-lg {
+  @include break(sm) { display: none; }
+  @include break(md) { display: none; }
+  @include break(lg) { display: inline; }
+}
+
+
+// tweaking typography for smaller elements
+// and components
+
+p {
+  @include break(sm) { line-height: 1.7rem;}
+  @include break(md) { line-height: 2rem;}
+  @include break(lg) { line-height: 2rem;}
+
+}
+
+h1 { 
+  font-weight: bolder;
+  @include break(sm) { font-size: 1.3rem;}
+  @include break(md) { font-size: 1.4rem;}
+  @include break(lg) { font-size: 1.5rem;}
+}
 
 em { 
-  @include font-size(1.05rem);
   font-style: italic;
+  @include break(sm) { font-size: .9rem;}
+  @include break(md) { font-size: 1rem;}
+  @include break(lg) { font-size: 1.1rem;}
 }
 
-button, input { 
-  font-size: inherit }
-
 .aff-tagline {
-  @include font-size(1.2rem);
   font-style: italic;  
+  @include break(sm) { font-size: .9rem;}
+  @include break(md) { font-size: 1rem;}
+  @include break(lg) { font-size: 1.1rem;}
 }
 
 .verse {
-  @include font-size(1.2rem);
-  line-height: $line-height;
   font-weight: 400;
+  @include break(sm) { font-size: 1em;}
+  @include break(md) { font-size: 1.1em;}
+  @include break(lg) { font-size: 1.2em;}
 }
+
 .ref {
-  font-style: italic;
-  @include font-size(1.4rem);
   font-weight: bolder;
+  font-style: italic;
+  @include break(sm) { font-size: 1.1em;}
+  @include break(md) { font-size: 1.2em;}
+  @include break(lg) { font-size: 1.3em;}
 }
 
 .aff-footer {
-  @include font-size(.8rem);
-  line-height: 1.5em;
+  @include break(sm) { font-size: .9rem;}
+  @include break(md) { font-size: 1rem;}
+  @include break(lg) { font-size: 1.1rem;}
 }
 
 .aff-footer .credit {
   font-style: italic;
-  @include font-size(1rem);
+  @include break(sm) { font-size: .8em;}
+  @include break(md) { font-size: .9em;}
+  @include break(lg) { font-size: 1em;}
+}
+.aff-footer .use {
+  @include break(sm) { font-size: .7em;}
+  @include break(md) { font-size: .8em;}
+  @include break(lg) { font-size: .9em;}
 }
 
 .aff-footer .version {
-  font-size: x-small;
+  @include break(sm) { font-size: .65em;}
+  @include break(md) { font-size: .7em;}
+  @include break(lg) { font-size: .8em;}  
 }
 
 
@@ -139,71 +180,39 @@ button, input {
 // LAYOUT
 
 body {
-  @include margin-top(.5rem);
-  @include margin-bottom(.5rem);
-  @include margin-right(.5rem);
-  @include margin-left(.5rem);
-
-  @include padding-top(1rem);
-  @include padding-bottom(1rem);
-  @include padding-right(.5rem);
-  @include padding-left(.5rem);
+  margin: .5em;
+  padding: 1em .5em;
 }
 
 h1, h2, h3, h4, h5 {
-  @include padding-top(.9rem);
-  @include padding-bottom(.6rem);
-  @include padding-right(.4rem);
-  @include padding-left(.75rem);
-
-  @include margin-top(.5rem);
-  @include margin-bottom(.5rem);
-  @include margin-right(.01rem);
-  @include margin-left(.01rem);
+  padding: .7em .6em .4em .7em;
+  margin: .5em .5em .01em .01em;
 }
 
 p {
-  @include padding-top(.5rem);
-  @include padding-bottom(.5rem);
-  @include padding-right(.01rem);
-  @include padding-left(.3rem);
-
-  @include margin-top(.02rem);
-  @include margin-bottom(.02rem);
-  @include margin-right(.01rem);
-  @include margin-left(.01rem);
+  padding: .5em .5em .01em .3em;
+  margin: .02em .02em .01em .01em;
 }
 
 .aff-header, .aff-content, .aff-footer {
-  @include padding-left(1rem);
-  @include padding-right(1rem);
-
-  @include margin-left(.01rem);  
-  @include margin-right(.01rem);
-
+  padding-left: 1em;
+  padding-right: 1em;
+  margin-left: .01em;
+  margin-right: .01em;
 }
 
 .aff-header {
-  @include padding-top(0rem);
-  @include padding-bottom(0rem);
-  
-  @include margin-top(0rem);
-  @include margin-bottom(0rem);
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
-.aff-content {
-  @include padding-top(2rem);
-  @include padding-bottom(2rem);
-
-  @include margin-top(1rem);
-  @include margin-bottom(.02rem);
-}
-
-.aff-footer {
-  @include padding-top(2rem);
-  @include padding-bottom(2rem);
-  @include margin-top(1rem);
-  @include margin-bottom(.02rem);
+.aff-content, .aff-footer {
+  padding-top: 2em;
+  padding-bottom: 2em; 
+  margin-top: 1em;
+  margin-bottom: .02em;
 }
 
 .aff-header img {
@@ -217,37 +226,33 @@ p {
   position: relative;
   display: inline-block;
 
-  @include margin-top(.02rem);
-  @include margin-bottom(.02rem);
-  @include margin-right(.01rem);
-  @include margin-left(.01rem);  
+  margin: .02em .02em .01em .01em;
 }
 
 .aff-header, .aff-footer, .aff-content {
   box-shadow: 0 7px 7px 0 $shadow-color, 0 8px 22px 0 $light-shadow-color;
 }
 
-.affcontent { padding: 0; }
-
 .passage { 
   border: 1px solid;
   border-radius: $border-rad;
-  @include padding-top(.8rem);
-  @include margin(.8rem); 
+  padding-top: .8em;
+  margin: .8em; 
 }
+
 .verse { 
-  @include padding(2.8rem 2.5rem .02rem 2.5rem); 
+  padding: 2.2em 2.4em .02em 2.4em;   
 }
 .ref { 
   text-align: right;
-  @include padding(1.2rem 2.0rem 1.5rem 2.5rem); 
+  padding: 1em 2.0em 1.5em 2.5em; 
 }
 
 .aff-footer .version {
-  @include padding-left(1.2rem);
+  padding-left: 1.2em;
 }
 
 .aff-footer .use {
-  @include margin(1.5rem 0rem .05rem 0rem);
-  @include padding(.4rem 1.2rem .4rem 1.2rem);
+  margin: 1.5em 0em .05em 0em;
+  padding: .4em 1.2em .4em 1.2em;
 }

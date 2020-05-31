@@ -1,13 +1,4 @@
-@import '../node_modules/rfs/scss';
 @import 'base';
-@import 'v_browser';
-
-
-$ctrl-font-size: 1.0rem;
-$ctrl-font-size-select: 1.5rem;
-$ctrl-font-size-option: 1.3rem;
-$ctrl-line-height: 2.0rem;
-$ctrl-height: 25rem;
 
 $ctrl-font-color: $light;
 $ctrl-border-color: $wine;
@@ -18,22 +9,29 @@ $ctrl-shadow-color: $dark-blue;
 $ctrl-light-shadow-color : $light-shadow-color;
 $ctrl-highlight-color: $gold;
 
-$ctrl-border-width: .063rem;
-$ctrl-width: 100%;
-$ctrl-min-width: 25rem; 
-$ctrl-max-width: 30rem;
-$ctrl-font-size: 2.0rem;
-$ctrl-right: 0rem;
-$ctrl-top: .6rem;
+$ctrl-font-base-size: 1rem;
 
-$ctrl-padding: .4rem;
+// does not control option size; that's tricky across OSes
+// my attempts are specified with the option tag below
+
+$ctrl-font-sm: 1.1em;
+$ctrl-font-md: 1.2em;
+$ctrl-font-lg: 1.3em;
+
+$ctrl-line-height: 1.3em;
+
+$ctrl-width: 100%;
+$ctrl-min-width: 100; 
+$ctrl-max-width: 800;
+$ctrl-padding: .4em;
 
 $ctrl-opt-back: $accent-color;
 $ctrl-opt-fore: $standout-color;
 
-@mixin aff-font($stack, $size) {  
-  font-family: $stack;
-  @include font-size($size);
+@mixin aff-font-size($sm, $md, $lg) {  
+  @include break(sm) { font-size: $sm;}
+  @include break(md) { font-size: $md;}
+  @include break(lg) { font-size: $lg;}
 }
 
 @mixin aff-border-shadow($aff-color) {
@@ -42,8 +40,7 @@ $ctrl-opt-fore: $standout-color;
   -webkit-border-radius: $border-rad;
   -kthml-border-radius: $border-rad;
   border-radius: $border-rad;
-  box-shadow: 0 7px 7px 0 $ctrl-shadow-color, 0 8px 22px 0 $ctrl-light-shadow-color;
-  
+  box-shadow: 0 7px 7px 0 $ctrl-shadow-color, 0 8px 22px 0 $ctrl-light-shadow-color; 
 }
 
 //-----------------------------------------------------------------
@@ -53,29 +50,32 @@ $ctrl-opt-fore: $standout-color;
 
 .aff-drop {
   text-align: center;
-  @include aff-font($font-stack-alt, $ctrl-font-size);
+  font-family: $font-stack-alt;
+  font-size: $ctrl-font-base-size;
 }
 
 .aff-drop form {
   font-family: $font-stack-alt;
-  @include aff-font($font-stack-alt, $ctrl-font-size);
-
   display: inline-block;
+
+  @include aff-font-size($ctrl-font-sm, $ctrl-font-md, $ctrl-font-lg);
 }
 
 .aff-drop-select select {
   color: $ctrl-back-color;
   background-color: $ctrl-font-color;
   
-  font-family: $font-stack;
-  @include aff-font($font-stack-alt, $ctrl-font-size-select);
+  font-family: $font-stack-alt;
   font-weight: bold;  
   line-height: $ctrl-line-height;
   -ms-word-break: normal;
   word-break: normal;   
 
-  @include margin(1.5rem 1.5rem 3.0rem 1.5rem);
-  @include padding(1.2rem 2.5rem);  
+  @include aff-font-size($ctrl-font-sm, $ctrl-font-md, $ctrl-font-lg);
+
+  margin: 1.3em 1.5em 2.0em 1.5em;
+  padding: .8em 2.0em;  
+
   @include aff-border-shadow($ctrl-border-color);
  
   &:active, &.active {
@@ -92,9 +92,11 @@ $ctrl-opt-fore: $standout-color;
   background-color: $ctrl-back-color;
 
   font-weight:normal;
-  @include aff-font($font-stack-alt, $ctrl-font-size-option);
-  @include padding(1rem .2rem 1rem .2rem);
-  @include margin(1rem .2rem 1rem .2rem);  
+  font-family: $font-stack-alt;
+  @include aff-font-size(.8em, .9em, 1em);
+
+  margin: 1em .2em 1em .2em;  
+  padding: .8em .2em;  
 
   &:hover, &:active {
     @include aff-border-shadow($ctrl-highlight-color);    
@@ -135,14 +137,16 @@ $ctrl-opt-fore: $standout-color;
   background-color: $ctrl-back-color;
   color: $ctrl-font-color;
 
-  @include aff-font($font-stack-alt, $ctrl-font-size);
+  font-family: $font-stack-alt;
   font-weight: normal;
+  @include aff-font-size($ctrl-font-sm, $ctrl-font-md, $ctrl-font-lg);
 
-  @include padding(.4rem .7rem);    
+
+  // CODEON: border vs. box-shadow
   @include aff-border-shadow($ctrl-border-color);
 
   display: inline-block;
-  padding: .8rem 1.7rem;
+  padding: .2em 1em;
   margin: 0 auto;
   text-decoration: none;
 
